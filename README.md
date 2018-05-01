@@ -1,0 +1,2 @@
+# YZEduAndroid
+把原来的云智教育Android端的代码移出来，由于Android是在Linux环境下编译开发的，所以单独拿出来做一个仓库，保证和其他文件不冲突
