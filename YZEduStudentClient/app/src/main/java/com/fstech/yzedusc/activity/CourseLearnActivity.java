@@ -192,6 +192,9 @@ public class CourseLearnActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.ll_misstake:
                 Log.e("click", "misstake");
+                Intent intent1 = new Intent(CourseLearnActivity.this, MisstakeActivity.class);
+                intent1.putExtra("course_id", cb.getCourse_id() + "");
+                startActivity(intent1);
                 break;
             case R.id.ll_exam:
                 Log.e("click", "exam");

@@ -107,7 +107,7 @@ public class LiveRoomActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                SystemClock.sleep(5000);
+                SystemClock.sleep(30000);
                 randomValue();
                 if (flag == true)
                     autoDisscuss();
