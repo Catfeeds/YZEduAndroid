@@ -10,12 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.fstech.yzedusc.R;
 import com.fstech.yzedusc.activity.CourseIntroduceActivity;
+import com.fstech.yzedusc.activity.InformationDetailActivity;
 import com.fstech.yzedusc.adapter.InformationListAdapter;
 import com.fstech.yzedusc.bean.BannerBean;
 import com.fstech.yzedusc.bean.InformationBean;
@@ -105,6 +107,16 @@ public class MainFragment extends Fragment {
         adapter = new InformationListAdapter(getActivity(), listItems_information);
         lv_information.setAdapter(adapter);
         listItems_banner = new ArrayList<BannerBean>();
+
+        lv_information.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                InformationBean ib = listItems_information.get(i);
+                Intent intent = new Intent(getActivity(), InformationDetailActivity.class);
+                intent.putExtra("ib", ib);
+                startActivity(intent);
+            }
+        });
     }
 
     /*
@@ -153,7 +165,6 @@ public class MainFragment extends Fragment {
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO 点击banner后的事件
                     if (type == 2) {
                         // 课程广告
                         Intent intent = new Intent(getActivity(), CourseIntroduceActivity.class);

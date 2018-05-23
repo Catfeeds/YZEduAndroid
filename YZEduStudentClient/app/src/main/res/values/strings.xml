@@ -71,5 +71,6 @@
     <string name="upload">上传</string>
     <string name="chose_file">选择文件</string>
     <string name="new_disscuss">新话题</string>
+    <string name="information_detail">资讯详情</string>
 
 </resources>

@@ -27,7 +27,7 @@
             android:layout_below="@+id/iv_avatar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:text="荀况"
+            android:text="请登录"
             android:textColor="@color/Write"
             android:textSize="18sp" />
 
@@ -50,7 +50,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="27dp"
-            android:text="2"
+            android:text=""
             android:textColor="@color/Write" />
     </RelativeLayout>
 

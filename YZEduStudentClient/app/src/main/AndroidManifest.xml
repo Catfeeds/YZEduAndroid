@@ -121,6 +121,12 @@
         <activity
             android:name=".activity.MisstakeActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.InformationDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
