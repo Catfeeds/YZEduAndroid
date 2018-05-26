@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.fstech.yzedusc.R;
 import com.fstech.yzedusc.adapter.LessonListAdapter;
+import com.fstech.yzedusc.application.YZEduApplication;
 import com.fstech.yzedusc.bean.CourseBean;
 import com.fstech.yzedusc.bean.InformationBean;
 import com.fstech.yzedusc.bean.LessonBean;
@@ -107,6 +108,18 @@ public class CourseIntroduceActivity extends AppCompatActivity {
         listItems = new ArrayList<LessonBean>();
         adapter_lesson = new LessonListAdapter(CourseIntroduceActivity.this, listItems);
         lv_catalog.setAdapter(adapter_lesson);
+
+        bn_option.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                YZEduApplication application = (YZEduApplication) getApplication();
+                if (application.getUser_id() == 0) {
+                    Toast.makeText(CourseIntroduceActivity.this, R.string.please_login_first, Toast.LENGTH_SHORT).show();
+                } else {
+                    // TODO 选课
+                }
+            }
+        });
 
     }
 

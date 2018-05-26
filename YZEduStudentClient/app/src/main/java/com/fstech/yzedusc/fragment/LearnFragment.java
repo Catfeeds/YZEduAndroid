@@ -7,12 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.fstech.yzedusc.R;
+import com.fstech.yzedusc.activity.CourseIntroduceActivity;
 import com.fstech.yzedusc.activity.GradeQueryActivity;
 import com.fstech.yzedusc.activity.MyCourseActivity;
 import com.fstech.yzedusc.activity.MyPracticalActivity;
 import com.fstech.yzedusc.activity.MyTaskActivity;
+import com.fstech.yzedusc.application.YZEduApplication;
 
 /**
  * Created by shaoxin on 18-3-25.
@@ -65,28 +68,45 @@ public class LearnFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    private boolean checkLogin() {
+        YZEduApplication application = (YZEduApplication) getActivity().getApplication();
+        if (application.getUser_id() == 0) {
+            Toast.makeText(getActivity(), R.string.please_login_first, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.main_re_mycourse:
-                // 转到我的课程
-                Intent intent0 = new Intent(getActivity(), MyCourseActivity.class);
-                startActivity(intent0);
+                if (checkLogin() == true) {
+                    // 转到我的课程
+                    Intent intent0 = new Intent(getActivity(), MyCourseActivity.class);
+                    startActivity(intent0);
+                }
                 break;
             case R.id.main_re_practical:
-                // 转到我的实训
-                Intent intent1 = new Intent(getActivity(), MyPracticalActivity.class);
-                startActivity(intent1);
+                if (checkLogin() == true) {
+                    // 转到我的实训
+                    Intent intent1 = new Intent(getActivity(), MyPracticalActivity.class);
+                    startActivity(intent1);
+                }
                 break;
             case R.id.main_re_task:
-                // 转到我的任务
-                Intent intent2 = new Intent(getActivity(), MyTaskActivity.class);
-                startActivity(intent2);
+                if (checkLogin() == true) {
+                    // 转到我的任务
+                    Intent intent2 = new Intent(getActivity(), MyTaskActivity.class);
+                    startActivity(intent2);
+                }
                 break;
             case R.id.main_re_grade:
-                // 转到成绩查询
-                Intent intent3 = new Intent(getActivity(), GradeQueryActivity.class);
-                startActivity(intent3);
+                if (checkLogin() == true) {
+                    // 转到成绩查询
+                    Intent intent3 = new Intent(getActivity(), GradeQueryActivity.class);
+                    startActivity(intent3);
+                }
                 break;
             default:
                 break;

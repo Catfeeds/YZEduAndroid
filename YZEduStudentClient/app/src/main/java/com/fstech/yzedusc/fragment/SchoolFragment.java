@@ -1,5 +1,6 @@
 package com.fstech.yzedusc.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,10 +11,13 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fstech.yzedusc.R;
+import com.fstech.yzedusc.activity.MyCourseActivity;
 import com.fstech.yzedusc.adapter.AnnouncementListAdapter;
 import com.fstech.yzedusc.adapter.InformationListAdapter;
+import com.fstech.yzedusc.application.YZEduApplication;
 import com.fstech.yzedusc.bean.AnnouncementBean;
 import com.fstech.yzedusc.bean.InformationBean;
 import com.fstech.yzedusc.view.MyListView;
@@ -50,8 +54,21 @@ public class SchoolFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        checkLogin();
         initView();
         initData();
+    }
+
+    /*
+    * 判断用户是否已登录
+    * 登录后才可见
+    * */
+    private void checkLogin() {
+        YZEduApplication application = (YZEduApplication) getActivity().getApplication();
+        if (application.getUser_id() == 0) {
+            Toast.makeText(getActivity(), R.string.please_login_first, Toast.LENGTH_SHORT).show();
+            // TODO 转到登录页
+        }
     }
 
     /*
