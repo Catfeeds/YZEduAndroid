@@ -19,7 +19,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             app:qmui_is_circle="true"
-            app:srcCompat="@drawable/header_01" />
+            app:srcCompat="@mipmap/header_default" />
 
         <TextView
             android:id="@+id/tv_name"

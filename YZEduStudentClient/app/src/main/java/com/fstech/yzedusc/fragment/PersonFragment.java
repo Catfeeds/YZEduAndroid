@@ -36,6 +36,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
     private TextView tv_name;
     private QMUIRadiusImageView iv_avatar;
     private ImageView iv_message;
+    private YZEduApplication application;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,16 +82,32 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
     * 无返回
     * */
     private void initData() {
+        application = (YZEduApplication) getActivity().getApplication();
+
 
     }
 
     private boolean checkLogin() {
-        YZEduApplication application = (YZEduApplication) getActivity().getApplication();
         if (application.getUser_id() == 0) {
             Toast.makeText(getActivity(), R.string.please_login_first, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
+    }
+
+    /*
+    * 点击用户头像或用户名的方法
+    * 如果已登录进入用户主页
+    * 否则进入登录页
+    * */
+    private void userMain() {
+        if (application.getUser_id() != 0) {
+            Intent intent = new Intent(getActivity(), UserInfoActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     // 监听按钮事件
@@ -132,13 +149,11 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.iv_avatar:
                 Log.e("click", "avatar");
-                Intent intent5 = new Intent(getActivity(), UserInfoActivity.class);
-                startActivity(intent5);
+                userMain();
                 break;
             case R.id.tv_name:
                 Log.e("click", "name");
-                Intent intent6 = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent6);
+                userMain();
                 break;
             case R.id.iv_message:
                 Log.e("click", "message");

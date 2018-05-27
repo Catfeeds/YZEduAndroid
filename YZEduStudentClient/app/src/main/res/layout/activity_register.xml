@@ -20,25 +20,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="10dp">
 
-
-        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_above="@+id/cardView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="-50dp"
-            android:elevation="5dp"
-            android:src="@mipmap/header_default"
-            app:qmui_border_color="@color/Write"
-            app:qmui_border_width="2dp"
-            app:qmui_is_circle="true" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="280dp"
-            android:layout_height="380dp"
+            android:layout_height="420dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             app:cardCornerRadius="@dimen/dimen_9dp">
@@ -47,13 +35,13 @@
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="30dp"
                 app:qmui_borderColor="@color/text_black9"
                 app:qmui_borderWidth="1dp"
                 app:qmui_radius="30dp">
 
                 <com.fstech.yzedusc.view.ClearEditText
-                    android:id="@+id/et_account"
+                    android:id="@+id/et_phone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
@@ -71,7 +59,7 @@
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="180dp"
+                android:layout_marginTop="100dp"
                 app:qmui_borderColor="@color/text_black9"
                 app:qmui_borderWidth="1dp"
                 app:qmui_radius="30dp">
@@ -91,40 +79,72 @@
 
             </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
-            <LinearLayout
-                android:layout_width="180dp"
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="170dp"
+                app:qmui_borderColor="@color/text_black9"
+                app:qmui_borderWidth="1dp"
+                app:qmui_radius="30dp">
+
+                <com.fstech.yzedusc.view.ClearEditText
+                    android:id="@+id/et_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@null"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:hint="@string/please_input_age"
+                    android:inputType="number"
+                    android:maxLength="3" />
+
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
+
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
+                android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="240dp"
-                android:orientation="horizontal">
+                app:qmui_borderColor="@color/text_black9"
+                app:qmui_borderWidth="1dp"
+                app:qmui_radius="30dp">
 
-                <TextView
-                    android:id="@+id/tv_forget"
-                    android:layout_width="0dp"
+                <RadioGroup
+                    android:id="@+id/rg_sex"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="@string/forget_password"
-                    android:textColor="@color/text_black6" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_register"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="@string/register_now"
-                    android:textColor="@color/colorPrimary" />
+                    <RadioButton
+                        android:id="@+id/rb_man"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="@string/man" />
 
-            </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/rb_wonam"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/woman" />
+
+                </RadioGroup>
+
+            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout>
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundLinearLayout
                 android:id="@+id/qrl_login"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="300dp"
+                android:layout_marginTop="310dp"
                 app:qmui_borderColor="@color/colorPrimary"
                 app:qmui_borderWidth="1dp"
                 app:qmui_radius="30dp">
@@ -134,7 +154,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
-                    android:text="@string/login"
+                    android:text="@string/register_now"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
 
@@ -146,43 +166,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="200dp" />
+                android:layout_marginTop="200dp"
+                android:visibility="gone" />
 
         </android.support.v7.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="280dp"
-            android:layout_height="40dp"
-            android:layout_alignBottom="@+id/cardView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="-60dp"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/Write" />
-
-            <TextView
-                android:id="@+id/tv_school_login"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:gravity="center_vertical"
-                android:text="@string/school_login"
-                android:textColor="@color/Write" />
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@color/Write" />
-
-        </LinearLayout>
 
     </RelativeLayout>
 

@@ -73,5 +73,18 @@
     <string name="new_disscuss">新话题</string>
     <string name="information_detail">资讯详情</string>
     <string name="please_login_first">请先登录</string>
+    <string name="please_input_account">请输入账号</string>
+    <string name="please_input_phone">请输入手机号</string>
+    <string name="please_input_age">请输入年龄</string>
+    <string name="please_input_password">请输入密码</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="register_now">立即注册</string>
+    <string name="login">登&#160;&#160;录</string>
+    <string name="school_login">机构账号登录</string>
+    <string name="account_password_not_null">账号密码不能为空！</string>
+    <string name="man">男</string>
+    <string name="woman">女</string>
+    <string name="search_school">搜索院校或机构</string>
+    <string name="school_select">选择院校</string>
 
 </resources>
