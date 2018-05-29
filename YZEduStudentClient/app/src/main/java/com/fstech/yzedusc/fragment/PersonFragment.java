@@ -22,6 +22,9 @@ import com.fstech.yzedusc.activity.SettingActivity;
 import com.fstech.yzedusc.activity.UserInfoActivity;
 import com.fstech.yzedusc.activity.WalletActivity;
 import com.fstech.yzedusc.application.YZEduApplication;
+import com.fstech.yzedusc.util.DownloadTools;
+import com.fstech.yzedusc.util.ImageUitl;
+import com.fstech.yzedusc.util.ThreadUtil;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
 /**
@@ -83,7 +86,27 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
     * */
     private void initData() {
         application = (YZEduApplication) getActivity().getApplication();
-
+        if (application.getUser_id() != 0) {
+            if (application.getStudent_name() != null) {
+                tv_name.setText(application.getStudent_name());
+                final String img = application.getUser_avatar();
+                // 显示图片
+                ThreadUtil.runInThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int state = DownloadTools.downloadImg(img);
+                        ThreadUtil.runInUIThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ImageUitl.SimpleShowImage(img, iv_avatar);
+                            }
+                        });
+                    }
+                });
+            } else {
+                tv_name.setText("用户" + application.getUser_id());
+            }
+        }
 
     }
 

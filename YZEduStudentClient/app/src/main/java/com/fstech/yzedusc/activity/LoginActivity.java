@@ -146,6 +146,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.tv_forget:
                 // TODO 忘记密码的业务
+                Toast.makeText(LoginActivity.this, R.string.forget_password, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.qrl_login:
                 // 登录
@@ -192,7 +193,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onResponse(String response) {
-//                Log.e("response", response);
                 try {
                     ObjectMapper objectMapper = new ObjectMapper();
                     JSONObject jobj = new JSONObject(response);

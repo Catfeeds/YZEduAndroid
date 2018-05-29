@@ -195,7 +195,7 @@ public class MainFragment extends Fragment {
     * 无返回
     * */
     private void getBanners() {
-        String url = Constant.BASE_DB_URL + "PlatformInformations";
+        String url = Constant.BASE_DB_URL1 + "platform/Information";
         Map<String, String> map = new HashMap<String, String>();
         map.put("page", "1");
         OkhttpUtil.okHttpGet(url, map, new CallBackUtil.CallBackString() {
@@ -226,17 +226,17 @@ public class MainFragment extends Fragment {
                         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-                    Log.e("Json", "创建Json对象失败");
+                    Log.e("Json", e.getMessage());
                     e.printStackTrace();
                 } catch (JsonParseException e) {
-                    Log.e("error", "包装异常");
+                    Log.e("error", e.getMessage());
                     e.printStackTrace();
                 } catch (JsonMappingException e) {
                     e.printStackTrace();
-                    Log.e("error", "PlatFormMapping异常");
+                    Log.e("error", e.getMessage());
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.e("error", "IO异常");
+                    Log.e("error", e.getMessage());
                 }
             }
         });

@@ -1,6 +1,7 @@
 package com.fstech.yzedusc.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by shaoxin on 18-3-28.
@@ -15,6 +16,8 @@ public class InformationBean implements Serializable {
     private String information_cover;   // 资讯图片路径(如果没有设为null)
     private String information_author;  // 资讯作者
     private int information_image_count;
+    private List<String> information_images; // 包含的图片列表，存放每张图片的图片路径
+
 
     public InformationBean() {
     }
@@ -83,6 +86,14 @@ public class InformationBean implements Serializable {
 
     public void setInformation_image_count(int information_image_count) {
         this.information_image_count = information_image_count;
+    }
+
+    public List<String> getInformation_images() {
+        return information_images;
+    }
+
+    public void setInformation_images(List<String> information_images) {
+        this.information_images = information_images;
     }
 
     @Override

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fstech.yzedusc.R;
+import com.fstech.yzedusc.activity.LoginActivity;
 import com.fstech.yzedusc.activity.MyCourseActivity;
 import com.fstech.yzedusc.adapter.AnnouncementListAdapter;
 import com.fstech.yzedusc.adapter.InformationListAdapter;
@@ -44,6 +45,8 @@ public class SchoolFragment extends Fragment {
     private List<InformationBean> listItems_information;
     private AnnouncementListAdapter announcement_adapter;
     private List<AnnouncementBean> listItems_announcement;
+    private YZEduApplication application;
+    private int school_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,10 +67,12 @@ public class SchoolFragment extends Fragment {
     * 登录后才可见
     * */
     private void checkLogin() {
-        YZEduApplication application = (YZEduApplication) getActivity().getApplication();
+        application = (YZEduApplication) getActivity().getApplication();
         if (application.getUser_id() == 0) {
             Toast.makeText(getActivity(), R.string.please_login_first, Toast.LENGTH_SHORT).show();
-            // TODO 转到登录页
+            // 转到登录页
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -106,8 +111,11 @@ public class SchoolFragment extends Fragment {
     * 无返回
     * */
     private void initData() {
-        tv_school_name.setText("高等院校01");
-
+        school_id = -1;
+        if (application.getSchool_id() != 0) {
+            tv_school_name.setText(application.getSchool_name());
+            school_id = application.getSchool_id();
+        }
         InformationBean ib = new InformationBean(1, "学院开设新的大数据课程",
                 "响应大数据的发展,我们院校将开设大数据的课程。", "2018-04-13", "570360ca00010eeb06000338-240-135.jpg", null);
         InformationBean ib2 = new InformationBean(2, "阿里云助力弹性伸缩服务",

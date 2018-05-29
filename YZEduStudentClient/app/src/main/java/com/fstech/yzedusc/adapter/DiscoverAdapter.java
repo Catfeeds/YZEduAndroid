@@ -59,7 +59,7 @@ public class DiscoverAdapter extends PagerAdapter{
 		hv.course_name.setText(listItems.get(position).get("course_name").toString());
 		hv.course_pnum.setText(listItems.get(position).get("course_pnum").toString());
 		final String img=listItems.get(position).get("course_img").toString();
-		// TODO 显示图片
+		// 显示图片
         ThreadUtil.runInThread(new Runnable() {
             @Override
             public void run() {
