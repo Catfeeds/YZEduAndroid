@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ListView;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.fstech.yzedusc.R;
 import com.fstech.yzedusc.adapter.ExamAdapter;
+import com.fstech.yzedusc.application.YZEduApplication;
 import com.fstech.yzedusc.util.CallBackUtil;
 import com.fstech.yzedusc.util.Constant;
 import com.fstech.yzedusc.util.OkhttpUtil;
@@ -34,6 +36,7 @@ public class ExamActivity extends Activity {
     private ExamAdapter adapter;
     private String acosid, userid;
     private int hasDone = 0;
+    private YZEduApplication application;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +60,9 @@ public class ExamActivity extends Activity {
     }
 
     private void initData() {
+        application = (YZEduApplication) getApplication();
         acosid = "1";
-        userid = "120110040225";
+        userid = application.getUser_id() + "";
     }
 
 
@@ -109,10 +113,10 @@ public class ExamActivity extends Activity {
                         Map<String, Object> listItem = new HashMap<String, Object>();
                         listItem.put("exam_id", exam.getString("exam_id"));
                         listItem.put("question", exam.getString("question"));
-                        listItem.put("A", exam.getString("ans_a"));
-                        listItem.put("B", exam.getString("ans_b"));
-                        listItem.put("C", exam.getString("ans_c"));
-                        listItem.put("D", exam.getString("ans_d"));
+                        listItem.put("A", exam.get("ans_a"));
+                        listItem.put("B", exam.get("ans_b"));
+                        listItem.put("C", exam.get("ans_c"));
+                        listItem.put("D", exam.get("ans_d"));
                         listItem.put("trueans", exam.getString("trueans"));
                         if (!exam.getString("trueans").equals("no")) hasDone = 1;
                         listItem.put("myans", exam.getString("myans"));
@@ -124,6 +128,7 @@ public class ExamActivity extends Activity {
                     lv_exam.setAdapter(adapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Log.e("err", e.getMessage());
                 }
             }
         });
@@ -140,6 +145,7 @@ public class ExamActivity extends Activity {
             public void onFailure(Call call, Exception e) {
                 Toast.makeText(ExamActivity.this, R.string.server_response_error, Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onResponse(String response) {
             }

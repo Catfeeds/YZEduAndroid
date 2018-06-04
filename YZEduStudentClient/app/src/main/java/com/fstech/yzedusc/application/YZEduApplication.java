@@ -1,8 +1,12 @@
 package com.fstech.yzedusc.application;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Application;
+
+import com.fstech.yzedusc.bean.MistakeBean;
 
 public class YZEduApplication extends Application implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -22,6 +26,8 @@ public class YZEduApplication extends Application implements Serializable{
 
 	private int school_id;
 	private String school_name;
+
+	private List<MistakeBean> mistakes = new ArrayList<>();
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -105,5 +111,13 @@ public class YZEduApplication extends Application implements Serializable{
 
     public void setSchool_name(String school_name) {
         this.school_name = school_name;
+    }
+
+    public List<MistakeBean> getMistakes() {
+        return mistakes;
+    }
+
+    public void setMistakes(List<MistakeBean> mistakes) {
+        this.mistakes = mistakes;
     }
 }

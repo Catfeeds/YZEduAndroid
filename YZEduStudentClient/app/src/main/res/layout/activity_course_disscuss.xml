@@ -78,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="@string/delete"
+                android:visibility="gone"
                 android:textColor="@color/grey_blue" />
 
         </LinearLayout>
@@ -131,6 +132,7 @@
                 android:textColor="@color/grey_blue" />
 
             <ImageView
+                android:id="@+id/zan1"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
@@ -138,6 +140,7 @@
                 android:src="@drawable/dianzan" />
 
             <TextView
+                android:id="@+id/tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -241,6 +244,7 @@
                 android:textColor="@color/grey_blue" />
 
             <ImageView
+                android:id="@+id/zan2"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
@@ -248,6 +252,7 @@
                 android:src="@drawable/dianzan" />
 
             <TextView
+                android:id="@+id/tv2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

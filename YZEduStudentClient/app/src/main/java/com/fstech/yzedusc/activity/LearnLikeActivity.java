@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.fstech.yzedusc.R;
 import com.fstech.yzedusc.adapter.LearnLikeGridAdapter;
+import com.fstech.yzedusc.application.YZEduApplication;
 import com.fstech.yzedusc.util.CallBackUtil;
 import com.fstech.yzedusc.util.Constant;
 import com.fstech.yzedusc.util.OkhttpUtil;
@@ -89,7 +90,8 @@ public class LearnLikeActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        userid = "120110040225";
+        YZEduApplication application = (YZEduApplication) getApplication();
+        userid = application.getUser_id()+"";
     }
 
     private void setListContent() {

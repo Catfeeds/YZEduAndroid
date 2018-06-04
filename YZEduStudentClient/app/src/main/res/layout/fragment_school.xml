@@ -321,7 +321,8 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:text="@string/delete"
-                                        android:textColor="@color/grey_blue" />
+                                        android:textColor="@color/grey_blue"
+                                        android:visibility="gone" />
 
                                 </LinearLayout>
 
@@ -439,7 +440,8 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:text="@string/delete"
-                                        android:textColor="@color/grey_blue" />
+                                        android:textColor="@color/grey_blue"
+                                        android:visibility="gone" />
 
                                 </LinearLayout>
 

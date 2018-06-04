@@ -25,15 +25,19 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="@string/misstake"
+            android:text="发表新话题"
             android:textColor="@color/qmui_config_color_white"
             android:textSize="18sp" />
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/lv_mistakes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/editText"
+        android:layout_width="300dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="200dp"
+        android:ems="10"
+        android:inputType="text" />
 
 </LinearLayout>

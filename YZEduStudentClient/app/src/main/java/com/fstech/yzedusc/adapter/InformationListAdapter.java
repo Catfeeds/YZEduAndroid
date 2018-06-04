@@ -99,7 +99,7 @@ public class InformationListAdapter extends BaseAdapter {
                         @Override
                         public void run() {
                             // 将图片显示到视图
-                            Log.e("img",information_image);
+//                            Log.e("img",information_image);
                             ImageUitl.SimpleShowImage(information_image, finalVh.iv_information_image);
                         }
                     });

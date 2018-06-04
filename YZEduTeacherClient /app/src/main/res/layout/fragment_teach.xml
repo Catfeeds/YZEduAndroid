@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/learn"
+            android:text="@string/teach"
             android:textColor="@color/Write"
             android:textSize="22sp" />
     </FrameLayout>

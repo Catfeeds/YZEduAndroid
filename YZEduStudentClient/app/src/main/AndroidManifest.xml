@@ -135,6 +135,9 @@
             android:name=".activity.SchoolSelectActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing"></activity>
+        <activity
+            android:name=".activity.MistakeDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -83,7 +83,7 @@ public class MainFragment extends Fragment {
                         break;
                     // 资讯数据加载完成
                     case 1:
-                        Log.e("informationsize", listItems_information.size() + "");
+//                        Log.e("informationsize", listItems_information.size() + "");
                         adapter.notifyDataSetChanged();
                         break;
                     default:
@@ -215,7 +215,7 @@ public class MainFragment extends Fragment {
                         JSONArray jsonArray = jsonObject.getJSONArray("return_data");
                         ObjectMapper objectMapper = new ObjectMapper();
                         for (int i = 0; i < jsonArray.length(); i++) {
-                            Log.e("informationsize", listItems_information.size() + "," + i + "," + jsonArray.length());
+//                            Log.e("informationsize", listItems_information.size() + "," + i + "," + jsonArray.length());
                             JSONObject jobj = jsonArray.getJSONObject(i);
                             InformationBean ib = objectMapper.readValue(jobj.toString(), InformationBean.class);
                             listItems_information.add(ib);

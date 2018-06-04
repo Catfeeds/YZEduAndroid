@@ -99,7 +99,7 @@ public class MyTaskActivity extends AppCompatActivity {
     private void initData() {
         TaskBean tb0 = new TaskBean(1, "完成第1节的课后习题", 1, 3298, "2018-04-09", "2018-04-18", 2, "王白老师", "2018-04-09");
         TaskBean tb1 = new TaskBean(1, "完成第2节的课后习题", 1, 3298, "2018-04-09", "2018-04-18", 4, "王白老师", "2018-04-09");
-        TaskBean tb2 = new TaskBean(1, "完成关于JAVA编程的实践", 2, 4298, "2018-04-11", "2018-04-15", 2, "文民老师", "2018-04-09");
+        TaskBean tb2 = new TaskBean(1, "完成关于HTML5编程的实践", 2, 4298, "2018-04-11", "2018-04-15", 2, "文民老师", "2018-04-09");
         listItems_doing.add(tb0);
         listItems_doing.add(tb2);
         listItems_all.add(tb0);

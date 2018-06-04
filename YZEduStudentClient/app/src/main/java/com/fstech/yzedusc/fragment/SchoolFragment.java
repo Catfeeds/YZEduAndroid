@@ -3,10 +3,14 @@ package com.fstech.yzedusc.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fstech.yzedusc.R;
+import com.fstech.yzedusc.activity.InformationDetailActivity;
 import com.fstech.yzedusc.activity.LoginActivity;
 import com.fstech.yzedusc.activity.MyCourseActivity;
 import com.fstech.yzedusc.adapter.AnnouncementListAdapter;
@@ -21,11 +26,26 @@ import com.fstech.yzedusc.adapter.InformationListAdapter;
 import com.fstech.yzedusc.application.YZEduApplication;
 import com.fstech.yzedusc.bean.AnnouncementBean;
 import com.fstech.yzedusc.bean.InformationBean;
+import com.fstech.yzedusc.util.CallBackUtil;
+import com.fstech.yzedusc.util.Constant;
+import com.fstech.yzedusc.util.OkhttpUtil;
 import com.fstech.yzedusc.view.MyListView;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.Call;
 
 /**
  * Created by shaoxin on 18-3-25.
@@ -47,6 +67,7 @@ public class SchoolFragment extends Fragment {
     private List<AnnouncementBean> listItems_announcement;
     private YZEduApplication application;
     private int school_id;
+    private Handler handler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +81,23 @@ public class SchoolFragment extends Fragment {
         checkLogin();
         initView();
         initData();
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    // 资讯列表加载完成
+                    case 1:
+                        information_adapter.notifyDataSetChanged();
+                        break;
+                    // 公告列表
+                    case 2:
+                        announcement_adapter.notifyDataSetChanged();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
     }
 
     /*
@@ -103,6 +141,16 @@ public class SchoolFragment extends Fragment {
         listItems_announcement = new ArrayList<AnnouncementBean>();
         announcement_adapter = new AnnouncementListAdapter(getActivity(), listItems_announcement);
         lv_announcement.setAdapter(announcement_adapter);
+
+        lv_information.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                InformationBean ib = listItems_information.get(i);
+                Intent intent = new Intent(getActivity(), InformationDetailActivity.class);
+                intent.putExtra("ib", ib);
+                startActivity(intent);
+            }
+        });
     }
 
     /*
@@ -116,29 +164,120 @@ public class SchoolFragment extends Fragment {
             tv_school_name.setText(application.getSchool_name());
             school_id = application.getSchool_id();
         }
-        InformationBean ib = new InformationBean(1, "学院开设新的大数据课程",
-                "响应大数据的发展,我们院校将开设大数据的课程。", "2018-04-13", "570360ca00010eeb06000338-240-135.jpg", null);
-        InformationBean ib2 = new InformationBean(2, "阿里云助力弹性伸缩服务",
-                "阿里云助力弹性伸缩服务，同学们可以借此机会学习这类课程，深入了解一下弹性伸缩服务。", "2018-04-10", "57466be500018b8006000338-240-135.jpg", null);
-        InformationBean ib3 = new InformationBean(3, "关于评选先进团支部的通知",
-                "我们学院将组织评选2017年度的优秀团支部，希望各个团支部都踊跃报名。", "2018-04-09", null, null);
-        listItems_information.add(ib);
-        listItems_information.add(ib2);
-        listItems_information.add(ib3);
 
+        setInformations();
+        setAnnouncements();
+    }
 
-        AnnouncementBean ab = new AnnouncementBean(1, "大三学生体测通知", "教育部将与4月17号对我校的大三学生进行体质考察抽测，希望大家做好充分准备。", 1,
-                "2018-04-05");
-        AnnouncementBean ab1 = new AnnouncementBean(2, "停水通知", "由于学校所在路线的水管维修修。明天8点到20点停水，请同学们做好水源储备。", 0,
-                "2018-04-01");
-        AnnouncementBean ab2 = new AnnouncementBean(3, "开发选课平台通知", "第二轮选课将与3月29到4月1号开启，希望大家根据自己的学分情况进行选课。", 0,
-                "2018-03-29");
-        AnnouncementBean ab3 = new AnnouncementBean(4, "大学生CET4/CET6考试报名通知", "大学生英语CET4/CET6考试报名已经开设了，请要参加的同学尽快完成考试报名。", 0,
-                "2018-03-25");
-        listItems_announcement.add(ab);
-        listItems_announcement.add(ab1);
-        listItems_announcement.add(ab2);
-        listItems_announcement.add(ab3);
+    /*
+    * 设置资讯列表
+    * */
+    public void setInformations() {
+        String url = Constant.BASE_DB_URL1 + "school/Information";
+        Map<String, String> map = new HashMap<>();
+        map.put("school_id", school_id + "");
+        map.put("page_id", 1 + "");
+        OkhttpUtil.okHttpGet(url, map, new CallBackUtil.CallBackString() {
+            @Override
+            public void onFailure(Call call, Exception e) {
+                Log.e("fail", "okhttp请求失败");
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("response", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    int result_code = jsonObject.getInt("result_code");
+                    if (result_code == 0) {
+                        // 返回正确的情况
+                        JSONArray jsonArray = jsonObject.getJSONArray("return_data");
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+//                            Log.e("informationsize", listItems_information.size() + "," + i + "," + jsonArray.length());
+                            JSONObject jobj = jsonArray.getJSONObject(i);
+                            InformationBean ib = objectMapper.readValue(jobj.toString(), InformationBean.class);
+                            listItems_information.add(ib);
+                        }
+                        handler.sendMessage(handler.obtainMessage(1));
+                    } else {
+                        String message = jsonObject.getString("message");
+                        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    Log.e("Json", e.getMessage());
+                    e.printStackTrace();
+                } catch (JsonParseException e) {
+                    Log.e("error", e.getMessage());
+                    e.printStackTrace();
+                } catch (JsonMappingException e) {
+                    e.printStackTrace();
+                    Log.e("error", e.getMessage());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e("error", e.getMessage());
+                }
+            }
+        });
+    }
+
+    /*
+    * 设置公告列表
+    * */
+    public void setAnnouncements() {
+        String url = Constant.BASE_DB_URL1 + "school/Announcement";
+        Map<String, String> map = new HashMap<>();
+        map.put("school_id", school_id + "");
+        map.put("page_id", 1 + "");
+        OkhttpUtil.okHttpGet(url, map, new CallBackUtil.CallBackString() {
+            @Override
+            public void onFailure(Call call, Exception e) {
+                Log.e("fail", "okhttp请求失败");
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("response", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    int result_code = jsonObject.getInt("result_code");
+                    if (result_code == 0) {
+                        // 返回正确的情况
+                        JSONArray jsonArray = jsonObject.getJSONArray("return_data");
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+//                            Log.e("informationsize", listItems_information.size() + "," + i + "," + jsonArray.length());
+                            JSONObject jobj = jsonArray.getJSONObject(i);
+                            AnnouncementBean ab= objectMapper.readValue(jobj.toString(), AnnouncementBean.class);
+                            listItems_announcement.add(ab);
+                        }
+                        handler.sendMessage(handler.obtainMessage(2));
+                    } else {
+                        String message = jsonObject.getString("message");
+                        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    Log.e("Json", e.getMessage());
+                    e.printStackTrace();
+                } catch (JsonParseException e) {
+                    Log.e("error", e.getMessage());
+                    e.printStackTrace();
+                } catch (JsonMappingException e) {
+                    e.printStackTrace();
+                    Log.e("error", e.getMessage());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e("error", e.getMessage());
+                }
+            }
+        });
+    }
+
+    /*
+    * 设置学友圈列表
+    * */
+    public void setCircleList() {
+
     }
 
 }
