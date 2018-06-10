@@ -30,8 +30,8 @@ public class Constant {
     public static final String BASE_VIDEO_URL = SERVER_IP + ":" + SERVER_PORT + "/YZEduFileServer/play?myfile=";
 
     // 基础数据请求路径2
+//    public static final String BASE_DB_URL1 = SERVER_IP + ":" + SERVER_PORT + "/YZEdu-1.0/";
     public static final String BASE_DB_URL1 = DB_SERVER_IP1 + "/YZEdu-1.0/";
-
     //几个代表页面的常量，代表第几个Fragment
     public static final int PAGE_ONE = 0;
     public static final int PAGE_TWO = 1;

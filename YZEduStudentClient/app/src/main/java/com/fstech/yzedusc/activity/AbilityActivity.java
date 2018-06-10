@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class AbilityActivity extends AppCompatActivity {
     private RadarChart mChart;
-    private final String[] mParties = {"理论分析", "实践操作", "语言表达", "创新思维", "地理思考", "团队协作", ""};
+    private final String[] mParties = {"理论分析", "实践操作", "语言表达", "创新思维", "独立思考", "团队协作", ""};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
